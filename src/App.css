@@ -1,26 +1,55 @@
+/* Wrapper for the entire game */
+.wrapper {
+  height: 100vh;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, #dbe9f4, #b3d1f4);
+  font-family: Arial, sans-serif;
+}
+
+/* Winning text */
+.win-text {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+/* Centering the game grid */
 .center {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /* flex: 1; */
 }
 
+/* Grid for the cards */
 .game {
   display: grid;
-  grid-template-columns: auto auto auto auto auto;
-  gap: 30px;
+  grid-template-columns: repeat(5, 1fr); /* 5 columns */
+  grid-template-rows: repeat(4, 1fr); /* 4 rows */
+  gap: 20px;
+  /* width: 500px; 
+  height: 500px;  */
+  max-width: 90%; /* Ensures responsiveness */
 }
 
+/* Styling for each card */
 .card {
-  border-radius: 8px;
-  padding: 10px;
+  border-radius: 10px;
   width: 100px;
   height: 100px;
-  /* background-color: aliceblue; */
   cursor: pointer;
-
+  background: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card:hover {
@@ -28,19 +57,24 @@
   transform: translateY(-5px);
 }
 
+/* Flipped card and matched card styling */
 .card-img {
-  width: 100px;
-  height: 100px;
+  width: 80%;
+  height: 80%;
   object-fit: cover;
+  border-radius: 8px;
 }
 
 .fallback-img {
-  width: 70px;
-  height: 80px;
+  height: 70%;  
+  opacity: 0.8;
+  border-radius: 8px;
 }
 
+/* Center alignment for card contents */
 .card-center {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 8px;
 }

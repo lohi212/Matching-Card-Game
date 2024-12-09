@@ -39,21 +39,25 @@ function App() {
     setAllCards(shuffleArray(duplicatedCards));
   }, []);
 
+  const nonMatchedCards = allCards.filter((ele) => !ele.isMatch);
   return (
-    <div className="center">
-      <div className="game">
-        {allCards.map((card, index) => (
-          <Card
-            key={card.cardID}
-            cardData={card}
-            lockBoard={lockBoard}
-            setLockBoard={setLockBoard}
-            selectedCards={selectedCards}
-            setSelectedCards={setSelectedCards}
-            updateCardMatch={updateCardMatch}
-            resetSelectedCards={resetSelectedCards}
-          />
-        ))}
+    <div className="wrapper">
+      <p className="win-text"> {!nonMatchedCards.length ? "You Won!" : ""}</p>
+      <div className="center">
+        <div className="game">
+          {allCards.map((card, index) => (
+            <Card
+              key={card.cardID}
+              cardData={card}
+              lockBoard={lockBoard}
+              setLockBoard={setLockBoard}
+              selectedCards={selectedCards}
+              setSelectedCards={setSelectedCards}
+              updateCardMatch={updateCardMatch}
+              resetSelectedCards={resetSelectedCards}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
