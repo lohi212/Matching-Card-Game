@@ -1,0 +1,46 @@
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.game {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  gap: 30px;
+}
+
+.card {
+  border-radius: 8px;
+  padding: 10px;
+  width: 100px;
+  height: 100px;
+  /* background-color: aliceblue; */
+  cursor: pointer;
+
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.card-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.fallback-img {
+  width: 70px;
+  height: 80px;
+}
+
+.card-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
