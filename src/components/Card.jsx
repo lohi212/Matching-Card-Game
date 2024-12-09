@@ -1,38 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Card = ({
-  data,
-  indx,
-  setSelectedCards,
+  cardData,
+  lockBoard,
+  setLockBoard,
   selectedCards,
+  setSelectedCards,
   updateCardMatch,
+  resetSelectedCards,
 }) => {
-  const [showImg, setShowImg] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
 
-  const toggleCard = () => {
-    setShowImg(true);
+  const handleClick = () => {
+    if (lockBoard || isFlipped || cardData.isMatch) return;
 
-    if (selectedCards.length) {
-      if (selectedCards.includes(data.id)) updateCardMatch(data);
-      else {
-        setTimeout(() => {
-          setShowImg(false);
-        }, 1500);
+    setIsFlipped(true);
+    if (selectedCards.length === 0) {
+      setSelectedCards([cardData]);
+    } else if (selectedCards.length === 1) {
+      setLockBoard(true);
+      setSelectedCards((prev) => [...prev, cardData]);
+
+      const [firstCard] = selectedCards;
+      if (
+        firstCard.id === cardData.id &&
+        firstCard.cardID !== cardData.cardID
+      ) {
+        updateCardMatch(cardData.id);
+        resetSelectedCards();
+      } else {
+        resetSelectedCards();
+        setTimeout(() => setIsFlipped(false), 1500);
       }
-      setSelectedCards([]);
-    } else setSelectedCards([data.id]);
+    }
   };
 
+  useEffect(() => {
+    if (!selectedCards.length && !cardData.isMatch) {
+      setIsFlipped(false);
+    }
+  }, [selectedCards, cardData.isMatch]);
+
   return (
-    <div className="card card-center" onClick={toggleCard}>
-      {data?.isMatch || showImg ? (
-        <img alt={data.alt} src={data.img} className="card-img" />
+    <div className="card card-center" onClick={handleClick}>
+      {isFlipped || cardData.isMatch ? (
+        <img alt={cardData.alt} src={cardData.img} className="card-img" />
       ) : (
-        <img
-          alt="mushroom"
-          src="/images/mushroom.jpg"
-          className="fallback-img"
-        />
+        <img alt="Hidden" src="/images/mushroom.jpg" className="fallback-img" />
       )}
     </div>
   );

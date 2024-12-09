@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 function App() {
   const [allCards, setAllCards] = useState([]);
   const [selectedCards, setSelectedCards] = useState([]);
+  const [lockBoard, setLockBoard] = useState(false);
 
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -15,40 +16,42 @@ function App() {
     return array;
   };
 
-  const updateCardMatch = (data) => {
-    console.log("==");
+  const updateCardMatch = (matchedCardID) => {
+    const updatedCards = allCards.map((card) =>
+      card.id === matchedCardID ? { ...card, isMatch: true } : card
+    );
+    setAllCards(updatedCards);
+  };
 
-    const newAllCards = allCards.map((ele) => {
-      if (data.id === ele.id)
-        return {
-          ...ele,
-          isMatch: true,
-        };
-
-      return ele;
-    });
-
-    setAllCards(newAllCards);
+  const resetSelectedCards = () => {
+    setTimeout(() => {
+      setSelectedCards([]);
+      setLockBoard(false);
+    }, 1500);
   };
 
   useEffect(() => {
-    const totalImages = [...ALL_CARDS, ...ALL_CARDS].map((ele) => {
-      return { ...ele, isMatch: false };
-    });
-    const shuffledImages = shuffleArray(totalImages);
-    setAllCards(shuffledImages);
+    const duplicatedCards = [...ALL_CARDS, ...ALL_CARDS].map((card, index) => ({
+      ...card,
+      isMatch: false,
+      cardID: `${card.id}-${index}`,
+    }));
+    setAllCards(shuffleArray(duplicatedCards));
   }, []);
 
   return (
     <div className="center">
       <div className="game">
-        {allCards.map((ele, i) => (
+        {allCards.map((card, index) => (
           <Card
-            data={ele}
-            indx={i}
+            key={card.cardID}
+            cardData={card}
+            lockBoard={lockBoard}
+            setLockBoard={setLockBoard}
             selectedCards={selectedCards}
             setSelectedCards={setSelectedCards}
             updateCardMatch={updateCardMatch}
+            resetSelectedCards={resetSelectedCards}
           />
         ))}
       </div>
