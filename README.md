@@ -40,16 +40,17 @@
 ### Example Gameplay:
 
 #### 1. Initial Grid:
-![Initial Grid](/images/start.png)
+<img src="./public/images/start.png" alt="Start Screen" width="500px">
 
 #### 2. Flipping Cards:
-![Flipping Cards](/images/continue.png)
+<img src="./public/images/continue.png" alt="Starting Game" width="500px">
 
 #### 3. Matching Pair:
-![Matching Pair](/images/continue.png)
+<img src="./public/images/continue1.png" alt="Continue Game" width="500px">
 
 #### 4. Winning the Game:
-![Winning Screen](/images/win.png)
+<img src="./public/images/win.png" alt="Winning Game" width="500px">
+
 
 ### Tips:
 - Try to memorize the positions of flipped cards for better chances of matching pairs quickly.
